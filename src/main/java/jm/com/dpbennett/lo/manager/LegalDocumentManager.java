@@ -46,6 +46,8 @@ import jm.com.dpbennett.fm.manager.FinanceManager;
 import jm.com.dpbennett.hrm.manager.HumanResourceManager;
 import jm.com.dpbennett.sm.manager.SystemManager;
 import jm.com.dpbennett.rm.manager.ReportManager;
+import jm.com.dpbennett.sm.manager.SystemManager.LoginActionListener;
+import jm.com.dpbennett.sm.manager.SystemManager.SearchActionListener;
 import jm.com.dpbennett.sm.util.BeanUtils;
 import jm.com.dpbennett.sm.util.MainTabView;
 import jm.com.dpbennett.sm.util.PrimeFacesUtils;
@@ -64,7 +66,8 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Desmond Bennett
  */
-public class LegalDocumentManager implements Serializable {
+public class LegalDocumentManager implements Serializable,
+        SearchActionListener, LoginActionListener {
 
     @PersistenceUnit(unitName = "JMTSPU")
     private EntityManagerFactory EMF;
@@ -78,6 +81,10 @@ public class LegalDocumentManager implements Serializable {
 
     public LegalDocumentManager() {
         init();
+    }
+
+    public String getApplicationHeader() {
+        return "Legal Office";
     }
 
     public List getLegalDocumentSearchTypes() {
@@ -168,6 +175,9 @@ public class LegalDocumentManager implements Serializable {
         searchType = "Legal documents";
         dateSearchPeriod = new DatePeriod("This month", "month", "dateReceived", null, null, null, false, false, false);
         dateSearchPeriod.initDatePeriod();
+
+        getSystemManager().addSingleLoginActionListener(this);
+        getSystemManager().addSingleSearchActionListener(this);
     }
 
     public void openReportsTab() {
@@ -585,7 +595,7 @@ public class LegalDocumentManager implements Serializable {
 
         return BeanUtils.findBean("reportManager");
     }
-    
+
     public FinanceManager getFinanceManager() {
 
         return BeanUtils.findBean("financeManager");
@@ -670,6 +680,39 @@ public class LegalDocumentManager implements Serializable {
         }
 
         return matchedGoals;
+
+    }
+
+    @Override
+    public void doDefaultSearch() {
+        switch (getSystemManager().getDashboard().getSelectedTabId()) {
+            case "Legal Office":
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void doLogin() {
+        initDashboard();
+        initMainTabView();
+    }
+
+    private void initDashboard() {
+
+        if (getUser().getModules().getHrmModule()) {
+            getSystemManager().getDashboard().openTab("Document Management");
+        }
+
+    }
+
+    private void initMainTabView() {
+
+        if (getUser().getModules().getHrmModule()) {
+            getSystemManager().getMainTabView().openTab("Document Browser");
+        }
 
     }
 
