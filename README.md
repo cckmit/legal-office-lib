@@ -1,2 +1,2 @@
-### Client Management Library
-The library for the Client Management web application.
+### Legal Office Library
+The library for the Legal Office web application.
