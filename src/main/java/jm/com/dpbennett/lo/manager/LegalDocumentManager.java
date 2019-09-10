@@ -317,7 +317,7 @@ public class LegalDocumentManager implements Serializable,
     public void editClassification(ActionEvent actionEvent) {
         getFinanceManager().setSelectedClassification(getCurrentDocument().getClassification());
 
-        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 325, 600);
+        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 350, 600);
     }
 
     public void createNewClassification(ActionEvent actionEvent) {
@@ -325,7 +325,7 @@ public class LegalDocumentManager implements Serializable,
         getFinanceManager().getSelectedClassification().setCategory("Legal");
         getFinanceManager().getSelectedClassification().setIsEarning(false);
 
-        PrimeFacesUtils.openDialog(null, "/admin/classificationDialog", true, true, true, 325, 600);
+        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 350, 600);
     }
 
     public void createNewDocumentType(ActionEvent actionEvent) {
