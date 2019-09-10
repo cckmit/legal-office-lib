@@ -295,9 +295,15 @@ public class LegalDocumentManager implements Serializable,
 
         // Do search to update search list.
         doLegalDocumentSearch();
+        
+        closeDialog(null);
     }
 
     public void cancelDocumentEdit(ActionEvent actionEvent) {
+        PrimeFaces.current().dialog().closeDynamic(null);
+    }
+    
+    public void closeDialog(ActionEvent actionEvent) {
         PrimeFaces.current().dialog().closeDynamic(null);
     }
 
@@ -306,11 +312,15 @@ public class LegalDocumentManager implements Serializable,
 
         PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDialog", true, true, true, true, 600, 700);
     }
+    
+    public void deleteDocumentConfirmDialog() {
+        PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDeleteConfirmDialog", true, true, true, false, 100, 400);
+    }
 
     public void editDocumentType(ActionEvent actionEvent) {
 
         getSystemManager().setSelectedDocumentType(getCurrentDocument().getType());
-        getCurrentDocument().setType(null); //tk
+        getCurrentDocument().setType(null);
         getSystemManager().openDocumentTypeDialog("/admin/documentTypeDialog");
     }
 
