@@ -712,7 +712,7 @@ public class LegalDocumentManager implements Serializable,
 
     private void initDashboard() {
 
-        if (getUser().getModules().getHrmModule()) {
+        if (getUser().getModules().getLegalOfficeModule()) {
             getSystemManager().getDashboard().openTab("Document Management");
         }
 
@@ -720,7 +720,7 @@ public class LegalDocumentManager implements Serializable,
 
     private void initMainTabView() {
 
-        if (getUser().getModules().getHrmModule()) {
+        if (getUser().getModules().getLegalOfficeModule()) {
             getSystemManager().getMainTabView().openTab("Document Browser");
         }
 
