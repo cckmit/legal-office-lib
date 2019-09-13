@@ -52,6 +52,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>report-management-lib</artifactId>
             <version>1.0.0</version>
-        </dependency>   
+        </dependency>  
     </dependencies>
 </project>
