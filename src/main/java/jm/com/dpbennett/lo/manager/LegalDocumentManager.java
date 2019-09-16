@@ -47,7 +47,6 @@ import jm.com.dpbennett.hrm.manager.HumanResourceManager;
 import jm.com.dpbennett.sm.manager.SystemManager;
 import jm.com.dpbennett.rm.manager.ReportManager;
 import jm.com.dpbennett.sm.manager.SystemManager.LoginActionListener;
-import jm.com.dpbennett.sm.manager.SystemManager.SearchActionListener;
 import jm.com.dpbennett.sm.util.BeanUtils;
 import jm.com.dpbennett.sm.util.MainTabView;
 import jm.com.dpbennett.sm.util.PrimeFacesUtils;
@@ -66,8 +65,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Desmond Bennett
  */
-public class LegalDocumentManager implements Serializable,
-        SearchActionListener, LoginActionListener {
+public class LegalDocumentManager implements Serializable, LoginActionListener {
 
     @PersistenceUnit(unitName = "JMTSPU")
     private EntityManagerFactory EMF;
@@ -177,7 +175,6 @@ public class LegalDocumentManager implements Serializable,
         dateSearchPeriod.initDatePeriod();
 
         getSystemManager().addSingleLoginActionListener(this);
-        getSystemManager().addSingleSearchActionListener(this);
     }
 
     public void openReportsTab() {
@@ -693,7 +690,6 @@ public class LegalDocumentManager implements Serializable,
 
     }
 
-    @Override
     public void doDefaultSearch() {
         switch (getSystemManager().getDashboard().getSelectedTabId()) {
             case "Legal Office":
