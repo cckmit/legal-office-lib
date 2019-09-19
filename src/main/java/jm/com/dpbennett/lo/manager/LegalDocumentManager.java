@@ -311,7 +311,7 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
     }
     
     public void deleteDocumentConfirmDialog() {
-        PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDeleteConfirmDialog", true, true, true, false, 100, 400);
+        PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDeleteConfirmDialog", true, true, true, false, 125, 400);
     }
 
     public void editDocumentType(ActionEvent actionEvent) {
@@ -691,13 +691,7 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
     }
 
     public void doDefaultSearch() {
-        switch (getSystemManager().getDashboard().getSelectedTabId()) {
-            case "Legal Office":
-
-                break;
-            default:
-                break;
-        }
+        doSearch();
     }
 
     @Override
