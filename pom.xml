@@ -33,7 +33,12 @@
             <artifactId>client-management-lib</artifactId>
             <version>1.0.0</version>
         </dependency> 
-            <dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>financial-management-lib</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>report-management-lib</artifactId>
             <version>1.0.0</version>
