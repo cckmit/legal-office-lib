@@ -30,17 +30,17 @@ import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import jm.com.dpbennett.business.entity.Classification;
+import jm.com.dpbennett.business.entity.fm.Classification;
 import jm.com.dpbennett.business.entity.DatePeriod;
-import jm.com.dpbennett.business.entity.Department;
-import jm.com.dpbennett.business.entity.DocumentReport;
-import jm.com.dpbennett.business.entity.DocumentSequenceNumber;
-import jm.com.dpbennett.business.entity.DocumentType;
-import jm.com.dpbennett.business.entity.Employee;
-import jm.com.dpbennett.business.entity.JobManagerUser;
-import jm.com.dpbennett.business.entity.LegalDocument;
-import jm.com.dpbennett.business.entity.SystemOption;
-import jm.com.dpbennett.business.entity.utils.BusinessEntityUtils;
+import jm.com.dpbennett.business.entity.hrm.Department;
+import jm.com.dpbennett.business.entity.rm.DocumentReport;
+import jm.com.dpbennett.business.entity.dm.DocumentSequenceNumber;
+import jm.com.dpbennett.business.entity.dm.DocumentType;
+import jm.com.dpbennett.business.entity.hrm.Employee;
+import jm.com.dpbennett.business.entity.jmts.JobManagerUser;
+import jm.com.dpbennett.business.entity.lo.LegalDocument;
+import jm.com.dpbennett.business.entity.sm.SystemOption;
+import jm.com.dpbennett.business.entity.util.BusinessEntityUtils;
 import jm.com.dpbennett.cm.manager.ClientManager;
 import jm.com.dpbennett.fm.manager.FinanceManager;
 import jm.com.dpbennett.hrm.manager.HumanResourceManager;
@@ -81,6 +81,10 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
         init();
     }
 
+    /**
+     * Get application heade.
+     * @return 
+     */
     public String getApplicationHeader() {
         return "Legal Office";
     }
