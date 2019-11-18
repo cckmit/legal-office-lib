@@ -31,13 +31,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import jm.com.dpbennett.business.entity.fm.Classification;
-import jm.com.dpbennett.business.entity.DatePeriod;
+import jm.com.dpbennett.business.entity.rm.DatePeriod;
 import jm.com.dpbennett.business.entity.hrm.Department;
 import jm.com.dpbennett.business.entity.rm.DocumentReport;
 import jm.com.dpbennett.business.entity.dm.DocumentSequenceNumber;
 import jm.com.dpbennett.business.entity.dm.DocumentType;
 import jm.com.dpbennett.business.entity.hrm.Employee;
-import jm.com.dpbennett.business.entity.jmts.JobManagerUser;
+import jm.com.dpbennett.business.entity.hrm.User;
 import jm.com.dpbennett.business.entity.lo.LegalDocument;
 import jm.com.dpbennett.business.entity.sm.SystemOption;
 import jm.com.dpbennett.business.entity.util.BusinessEntityUtils;
@@ -211,7 +211,6 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
     public void editExternalClient() {
 
         getClientManager().setSelectedClient(getCurrentDocument().getExternalClient());
-        getClientManager().setIsClientNameAndIdEditable(getUser().getPrivilege().getCanAddClient());
 
         PrimeFacesUtils.openDialog(null, "/client/clientDialog", true, true, true, 450, 700);
     }
@@ -245,7 +244,6 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
 
     public void createNewExternalClient() {
         getClientManager().createNewClient(true);
-        getClientManager().setIsClientNameAndIdEditable(getUser().getPrivilege().getCanAddClient());
 
         PrimeFacesUtils.openDialog(null, "/client/clientDialog", true, true, true, 450, 700);
     }
@@ -435,12 +433,12 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
         return getSystemManager().getMainTabView();
     }
 
-    public JobManagerUser getUser() {
+    public User getUser() {
         return getSystemManager().getUser();
     }
 
     public LegalDocument createNewLegalDocument(EntityManager em,
-            JobManagerUser user) {
+            User user) {
 
         LegalDocument legalDocument = new LegalDocument();
         legalDocument.setAutoGenerateNumber(Boolean.TRUE);
