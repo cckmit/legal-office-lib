@@ -175,9 +175,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     }
 
     private void init() {
-        searchType = "Legal documents";
-        dateSearchPeriod = new DatePeriod("This month", "month", "dateReceived", null, null, null, false, false, false);
-        dateSearchPeriod.initDatePeriod();
+        reset();
 
         getSystemManager().addSingleAuthenticationListener(this);
     }
@@ -187,7 +185,9 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     }
 
     public void reset() {
-        init();
+        searchType = "Legal documents";
+        dateSearchPeriod = new DatePeriod("This month", "month", "dateReceived", null, null, null, false, false, false);
+        dateSearchPeriod.initDatePeriod();
     }
 
     public List<Classification> completeClassification(String query) {
@@ -721,7 +721,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
 
     @Override
     public void completeLogout() {
-        System.out.println("Complete logout...");
+        reset();
     }
 
 }
