@@ -46,7 +46,7 @@ import jm.com.dpbennett.fm.manager.FinanceManager;
 import jm.com.dpbennett.hrm.manager.HumanResourceManager;
 import jm.com.dpbennett.sm.manager.SystemManager;
 import jm.com.dpbennett.rm.manager.ReportManager;
-import jm.com.dpbennett.sm.manager.SystemManager.LoginActionListener;
+import jm.com.dpbennett.sm.Authentication.AuthenticationListener;
 import jm.com.dpbennett.sm.util.BeanUtils;
 import jm.com.dpbennett.sm.util.MainTabView;
 import jm.com.dpbennett.sm.util.PrimeFacesUtils;
@@ -65,7 +65,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Desmond Bennett
  */
-public class LegalDocumentManager implements Serializable, LoginActionListener {
+public class LegalDocumentManager implements Serializable, AuthenticationListener {
 
     @PersistenceUnit(unitName = "JMTSPU")
     private EntityManagerFactory EMF;
@@ -83,7 +83,8 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
 
     /**
      * Get application heade.
-     * @return 
+     *
+     * @return
      */
     public String getApplicationHeader() {
         return "Legal Office";
@@ -178,7 +179,7 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
         dateSearchPeriod = new DatePeriod("This month", "month", "dateReceived", null, null, null, false, false, false);
         dateSearchPeriod.initDatePeriod();
 
-        getSystemManager().addSingleLoginActionListener(this);
+        getSystemManager().addSingleAuthenticationListener(this);
     }
 
     public void openReportsTab() {
@@ -294,14 +295,14 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
 
         // Do search to update search list.
         doLegalDocumentSearch();
-        
+
         closeDialog(null);
     }
 
     public void cancelDocumentEdit(ActionEvent actionEvent) {
         PrimeFaces.current().dialog().closeDynamic(null);
     }
-    
+
     public void closeDialog(ActionEvent actionEvent) {
         PrimeFaces.current().dialog().closeDynamic(null);
     }
@@ -311,7 +312,7 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
 
         PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDialog", true, true, true, true, 600, 700);
     }
-    
+
     public void deleteDocumentConfirmDialog() {
         PrimeFacesUtils.openDialog(null, "/legal/legalDocumentDeleteConfirmDialog", true, true, true, false, 125, 400);
     }
@@ -696,12 +697,6 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
         doSearch();
     }
 
-    @Override
-    public void doLogin() {
-        initDashboard();
-        initMainTabView();
-    }
-
     private void initDashboard() {
 
         if (getUser().getModules().getLegalOfficeModule()) {
@@ -716,6 +711,17 @@ public class LegalDocumentManager implements Serializable, LoginActionListener {
             getSystemManager().getMainTabView().openTab("Document Browser");
         }
 
+    }
+
+    @Override
+    public void completeLogin() {
+        initDashboard();
+        initMainTabView();
+    }
+
+    @Override
+    public void completeLogout() {
+        System.out.println("Complete logout...");
     }
 
 }
