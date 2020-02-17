@@ -700,7 +700,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     private void initDashboard() {
 
         if (getUser().getModules().getLegalOfficeModule()) {
-            getSystemManager().getDashboard().openTab("Document Management");
+            getSystemManager().getDashboard().openTab("Legal Office");
         }
 
     }
