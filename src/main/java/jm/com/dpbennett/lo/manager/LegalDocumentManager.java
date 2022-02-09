@@ -213,7 +213,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
 
         getClientManager().setSelectedClient(getCurrentDocument().getExternalClient());
 
-        PrimeFacesUtils.openDialog(null, "/client/clientDialog", true, true, true, 450, 700);
+        editClient();
     }
 
     public void externalClientDialogReturn() {
@@ -246,7 +246,11 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     public void createNewExternalClient() {
         getClientManager().createNewClient(true);
 
-        PrimeFacesUtils.openDialog(null, "/client/clientDialog", true, true, true, 450, 700);
+        editClient();
+    }
+    
+    public void editClient() {
+        PrimeFacesUtils.openDialog(null, "/client/clientDialog", true, true, true, 600, 700);
     }
 
     public DatePeriod getDateSearchPeriod() {
@@ -327,7 +331,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     public void editClassification(ActionEvent actionEvent) {
         getFinanceManager().setSelectedClassification(getCurrentDocument().getClassification());
 
-        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 350, 600);
+        editClassification();
     }
 
     public void createNewClassification(ActionEvent actionEvent) {
@@ -335,7 +339,13 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
         getFinanceManager().getSelectedClassification().setCategory("Legal");
         getFinanceManager().getSelectedClassification().setIsEarning(false);
 
-        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 350, 600);
+        editClassification();
+    }
+    
+    public void editClassification() {
+        
+        PrimeFacesUtils.openDialog(null, "/finance/classificationDialog", true, true, true, 500, 600);
+        
     }
 
     public void createNewDocumentType(ActionEvent actionEvent) {
@@ -699,16 +709,18 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
 
     private void initDashboard() {
 
-        if (getUser().getModules().getLegalOfficeModule()) {
-            getSystemManager().getDashboard().openTab("Legal Office");
+        if (getUser().hasModule("LegalOfficeModule")) {
+            getSystemManager().getDashboard().openTab(getUser().
+                    getActiveModule("LegalOfficeModule").getDashboardTitle());
         }
 
     }
 
     private void initMainTabView() {
 
-        if (getUser().getModules().getLegalOfficeModule()) {
-            getSystemManager().getMainTabView().openTab("Document Browser");
+        if (getUser().hasModule("LegalOfficeModule")) {
+            getMainTabView().openTab(getUser().
+                    getActiveModule("LegalOfficeModule").getMainViewTitle());
         }
 
     }
