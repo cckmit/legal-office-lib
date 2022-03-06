@@ -1,6 +1,6 @@
 /*
 Job Management & Tracking System (JMTS) 
-Copyright (C) 2017  D P Bennett & Associates Limited
+Copyright (C) 2022  D P Bennett & Associates Limited
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -67,8 +67,6 @@ import org.primefaces.event.SelectEvent;
  */
 public class LegalDocumentManager implements Serializable, AuthenticationListener {
 
-    @PersistenceUnit(unitName = "JMTSPU")
-    private EntityManagerFactory EMF;
     private DatePeriod dateSearchPeriod;
     private String searchType;
     private String searchText;
@@ -622,7 +620,7 @@ public class LegalDocumentManager implements Serializable, AuthenticationListene
     }
 
     private EntityManager getEntityManager() {
-        return EMF.createEntityManager();
+        return getSystemManager().getEntityManager();
     }
 
     public void formatDocumentTableXLS(Object document, String headerTitle) {
